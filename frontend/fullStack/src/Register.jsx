@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import apiClient from '../api/axiosApi'
 const Register = () => {
 
   const [formData,setFormData]=useState({
@@ -18,43 +18,58 @@ const Register = () => {
     }));
   }
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async (e) =>{
     e.preventDefault();
-    console.log('form submitted: ',formData);
-    
+     try{
+       const response = await apiClient.post("/userdata",formData);
+       console.log(response.data);
+     }
+     catch(err)
+     {
+      console.log(err);    
+     }
   }
 
   return (
 
     <>
-    <div className="max-w-sm mx-auto"> Register Form</div>
-    <div>
-      <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
-        <div className="mb-5">
-         <label for='name' className="block mb-2.5 text-sm font-medium text-heading" >Name:</label>
-         <input type="text" name="name" id="name"  value={formData.name} onChange={handleChange} className='bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body'/>
+       <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl p-8">
+     
+    <h3 className="text-center text-gray-200 mt-2 mb-8"> Register Form</h3>
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        <div >
+         <label htmlFor='name'  className="block mb-2 text-sm font-medium text-gray-300" >Name:</label>
+         <input type="text" name="name" id="name"  value={formData.name} onChange={handleChange} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition"/>
         </div>
-        <div className="mb-5">
-         <label for='email' className="block mb-2.5 text-sm font-medium text-heading">Email:</label>
-         <input type="email" name="email" id='email' value={formData.email} onChange={handleChange} className='bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body' />
+        <div >
+         <label htmlFor='email' className="block mb-2 text-sm font-medium text-gray-300">Email:</label>
+         <input type="email" name="email" id='email' value={formData.email} onChange={handleChange} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition" />
         </div>
-        <div className="mb-5">
-         <label for='password' className="block mb-2.5 text-sm font-medium text-heading">Password:</label>
-         <input type="password" name="password" id='password' value={formData.password} onChange={handleChange} className='bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body'/>
+        <div>
+         <label htmlFor='password' className="block mb-2 text-sm font-medium text-gray-300">Password:</label>
+         <input type="password" name="password" id='password' value={formData.password} onChange={handleChange} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition"/>
         </div>
-        <div className="mb-5">
-         <label for='age' className="block mb-2.5 text-sm font-medium text-heading">Age:</label>
-         <input type="number" name="age" id="age" value={formData.age} onChange={handleChange} className='bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body'/>
+        <div >
+         <label htmlFor='age' className="block mb-2 text-sm font-medium text-gray-300">Age:</label>
+         <input type="number" name="age" id="age" value={formData.age} onChange={handleChange} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition"/>
         </div>
-        <div className="mb-5">
-         <label for='phone_no' className="block mb-2.5 text-sm font-medium text-heading">Phone Number:</label>
-         <input type="phone" name="phone" id='phone_no' value={formData.phone} onChange={handleChange} className='bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body'/>
+        <div>
+         <label htmlFor='phone_no' className="block mb-2 text-sm font-medium text-gray-300">Phone Number:</label>
+         <input type="tel" name="phone_no" id='phone_no' value={formData.phone_no} onChange={handleChange} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition"/>
         </div>
-         <div className="mb-5">
+         <div>
 
-         <input type="submit"   onChange={handleSubmit} id='submit' />
+            <button
+            type="submit"
+            className="w-full bg-white text-gray-900 font-semibold py-3 rounded-lg hover:bg-gray-300 transition duration-300 cursor-pointer"
+             >
+            Register
+          </button>
+        
         </div>
       </form>
+    </div>
     </div>
     </>
   )
