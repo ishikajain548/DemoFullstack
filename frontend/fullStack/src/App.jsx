@@ -8,6 +8,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Navbar from './components/Navbar'
+import EditForm from '../EditForm'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
          <Route path='/' element={<Home/>} />
            <Route path='/login' element={<Login/>} />
              <Route path='/register' element={<Register/>} />
+              <Route path='/edit/:id' element={<EditForm/>} />
        </Routes>
     </BrowserRouter>
   )
