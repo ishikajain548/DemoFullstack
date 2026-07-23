@@ -41,9 +41,11 @@ const Home = () => {
 
   return (
     <>
-    <div className='max-w-5xl max-auto mt-10 flex-'>
-      <h3 className='text-2xl font-bold mb-6 text-center'>All Users</h3>
-      <table className='w-full border border-gray-300 '>
+    
+    <div className='max-w-6xl mx-auto mt-10 px-4'>
+      <h3 className='text-3xl font-bold mb-6 text-center text-gray-800'>All Users</h3>
+        <div className='overflow-x-auto shadow-lg rounded-lg'>
+       <table className='w-full border border-gray-300 bg-white'>
         <thead className='bg-blue-900 text-white'>
           <tr>
             <th className='p-3'>Id</th>
@@ -78,7 +80,8 @@ const Home = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+       </table>
+       </div>
       </div>
      
 

@@ -22,7 +22,40 @@ const Register = () => {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+
+     const { name, email, password, age, phone_no } = formData;
+
+     if(name.trim() === "")
+     {
+       alert("name is required");
+       return;
+     }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Invalid Email");
+    return;
+  }
+
+  if (password.length < 8) {
+    alert("Password must be at least 8 characters");
+    return;
+  }
+
+  if (age < 18 || age > 100) {
+    alert("Age should be between 18 and 100");
+    return;
+  }
+
+  const phoneRegex = /^[0-9]{10}$/;
+
+  if (!phoneRegex.test(phone_no)) {
+    alert("Phone number must contain exactly 10 digits");
+    return;
+  }
+
      try{
+        
        const response = await apiClient.post("/userdata",formData);
        console.log(response.data);
        alert('user registered success!')
