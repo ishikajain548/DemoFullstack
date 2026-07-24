@@ -1,4 +1,5 @@
 const pool = require('../config/db')
+const bcrypt = require("bcrypt");
 
 exports.getAllUsers =  async (req,res)=>{
     try{
@@ -27,26 +28,6 @@ exports.getUserById = async (req,res) =>{
     }
 }
 
-exports.createUser = async (req,res) =>{
-    const {name,email,password,age,phone_no} = req.body;
-
-    if(!name || !email || !password || !age || !phone_no)
-    {
-        return res.status(400).json({err:'please fill all details'})
-    }
-    try{
-       const insertQuery = `insert into users (name,email,password,age,phone_no) values ($1,$2,$3,$4,$5) returning *`;
-   
-       const result = await pool.query(insertQuery,[name,email,password,age,phone_no])
-    
-       res.status(201).json(result.rows[0]);
-    }
-     catch(err)
-    {
-       console.log(err);
-      res.status(500).json({error: 'internal server error'})
-    }
-}
 
 exports.updateUserPutRequest = async (req,res) =>{
     

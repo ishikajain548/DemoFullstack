@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-
+import apiClient from '../api/axiosApi'
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
+ 
+  const navigate =useNavigate();
 
   const [formData,setFormData]=useState({
     email:"",
@@ -18,8 +21,10 @@ const Login = () => {
   const handleSubmit = async (e) =>{
     e.preventDefault();
      try{
-       const response = await apiClient.post("/userdata/login",formData);
+       const response = await apiClient.post("/auth/login",formData);
        console.log(response.data);
+       alert("login success")
+       navigate("/")
      }
      catch(err)
      {

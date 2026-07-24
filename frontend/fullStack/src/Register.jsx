@@ -37,11 +37,14 @@ const Register = () => {
     return;
   }
 
-  if (password.length < 8) {
-    alert("Password must be at least 8 characters");
-    return;
-  }
+ const passwordRegex =
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
+if (!passwordRegex.test(password)) {
+    
+       alert("Password must contain uppercase, lowercase, number and special character.")
+       return; 
+}
   if (age < 18 || age > 100) {
     alert("Age should be between 18 and 100");
     return;
@@ -56,7 +59,7 @@ const Register = () => {
 
      try{
         
-       const response = await apiClient.post("/userdata",formData);
+       const response = await apiClient.post("/auth/register",formData);
        console.log(response.data);
        alert('user registered success!')
        setFormData(initialState)

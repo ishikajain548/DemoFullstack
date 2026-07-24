@@ -15,6 +15,9 @@ app.use(express.json());
 
 // first data is converted to json then routes are matched so remember sequence
 const userRoutes = require("./routes/userRoutes")
+const authRoutes = require("./routes/authRoutes")
+
+app.use("/auth",authRoutes)
 app.use("/userdata",userRoutes)
 
 
