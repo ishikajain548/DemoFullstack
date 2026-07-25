@@ -17,7 +17,7 @@ const EditForm = () => {
      })
 
      const { id } = useParams(); 
-     console.log(id)
+     console.log(typeof id)
        useEffect(() => {
          fetchUserData(id)
        }, [])
@@ -51,7 +51,7 @@ const EditForm = () => {
          console.log(response.data);
          alert('user updated successfully.')
          fetchUserData();
-         navigate('/')
+         navigate('/users')
       }
       catch(err)
       {

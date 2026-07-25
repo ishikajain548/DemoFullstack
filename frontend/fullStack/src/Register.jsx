@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import apiClient from '../api/axiosApi'
+import { useNavigate } from 'react-router-dom'
 const Register = () => {
+
+   const navigate=useNavigate();
 
   const initialState = {
     name:"",
@@ -60,9 +63,11 @@ if (!passwordRegex.test(password)) {
      try{
         
        const response = await apiClient.post("/auth/register",formData);
-       console.log(response.data);
+      
        alert('user registered success!')
        setFormData(initialState)
+       navigate("/login")
+       
      }
      catch(err)
      {

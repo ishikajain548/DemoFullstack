@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt")
 const pool = require("../config/db")
+const jwt = require("jsonwebtoken")
+require("dotenv").config();
 
 exports.login = async (req,res) =>{
     const {email,password} = req.body;
@@ -30,10 +32,30 @@ exports.login = async (req,res) =>{
         //hum kabhi bhi user ko password nhi bhejenge
         delete user.password;
 
+          const token = jwt.sign(
+            {
+                id:user.id,
+                email:user.email
+            },
+            //secret - it helps to digitally sign this token
+            // and later we will verify it using this key
+            process.env.JWT_SECRET,
+            {
+                expiresIn:process.env.JWT_EXPIRES_IN
+            }
+          );
+    
+          res.cookie("token", token, {
+             httpOnly: true,
+             secure: false,
+             sameSite: "lax",
+            maxAge: 1000 * 60 * 60
+           });
+
         return res.status(200).json({
-            message:"login success",
-            user
-        })
+    success: true,
+    message: "Login successful"
+});
     }
     catch(err)
     {
@@ -48,8 +70,7 @@ exports.login = async (req,res) =>{
 exports.register = async (req,res) =>{
     let {name,email,password,age,phone_no} = req.body;
 
-    name=name?.trim();
-    email=email?.trim().lowerCase();
+  
 
     if(!name || !email || !password || !age || !phone_no)
     {
@@ -111,4 +132,23 @@ password=hashedPassword;
        console.log(err);
       res.status(500).json({error: 'internal server error'})
     }
+}
+
+exports.logout = (req, res) => {
+
+    res.clearCookie("token");
+
+    return res.status(200).json({
+        success: true,
+        message: "Logout successful"
+    });
+
+};
+
+exports.me = (req,res) =>{
+    return res.status(200).json({
+        authenticated: true,
+        user: req.user
+    });
+
 }

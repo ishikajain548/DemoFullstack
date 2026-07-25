@@ -15,7 +15,11 @@ exports.getAllUsers =  async (req,res)=>{
 exports.getUserById = async (req,res) =>{
     try{
         const {id} = req.params;
-        const result = await pool.query('select * from users where id = $1',[id])
+        console.log(typeof id);
+        console.log(id);
+        
+        
+        const result = await pool.query("select * from users where id = $1",[id])
         if (result.rows.length === 0) {
         return res.status(404).json({ message: 'User not found' });
     }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import apiClient from '../api/axiosApi'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from './context/AuthContext'
 const Login = () => {
  
+  const { setIsAuthenticated, setUser } = useAuth();
   const navigate =useNavigate();
 
   const [formData,setFormData]=useState({
@@ -21,10 +23,12 @@ const Login = () => {
   const handleSubmit = async (e) =>{
     e.preventDefault();
      try{
-       const response = await apiClient.post("/auth/login",formData);
-       console.log(response.data);
+       const response = await apiClient.post("/auth/login",
+        formData);
+        setIsAuthenticated(true);
+        setUser(response.data.user);
        alert("login success")
-       navigate("/")
+       navigate("/users")
      }
      catch(err)
      {
