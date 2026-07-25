@@ -48,8 +48,8 @@ if (!passwordRegex.test(password)) {
        alert("Password must contain uppercase, lowercase, number and special character.")
        return; 
 }
-  if (age < 18 || age > 100) {
-    alert("Age should be between 18 and 100");
+  if (age < 0) {
+    alert("Age should be positive");
     return;
   }
 
